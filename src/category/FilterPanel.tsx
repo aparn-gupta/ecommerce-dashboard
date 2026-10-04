@@ -303,7 +303,7 @@ const FilterPanel = ({ products }: { products: Product[] }) => {
   return (
     <div className="bg-white py-5 px-3 h-[calc(100vh-76px)] overflow-y-scroll">
       <div className="flex flex-wrap gap-y-3 gap-x-3 ">
-        {selectedFilters.map((item, i) => (
+        {selectedFilters.map((item) => (
           <div className="bg-zinc-300 p-2   gap-3 flex w-auto h-auto rounded-xs">
             <div className="flex gap-x-1 hover:line-through">
               <span

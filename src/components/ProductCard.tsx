@@ -1,5 +1,3 @@
-import React from "react";
-
 interface ProductProps {
   title: string;
   price: number;
@@ -12,7 +10,6 @@ const ProductCard = ({
   title,
   price,
   discountPercent,
-  rating,
   thumbnail,
 }: ProductProps) => {
   const calcOriginalPrice = (givenPrice: number, percentage: number) => {

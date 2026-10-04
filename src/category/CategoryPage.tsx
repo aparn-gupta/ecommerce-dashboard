@@ -1,7 +1,7 @@
 import FilterPanel from "./FilterPanel";
 import { useParams } from "react-router";
 import { useFetch } from "../hooks/useFetch";
-import type { Product, Data } from "../lib/types";
+import type { Data } from "../lib/types";
 
 import Products from "./Products";
 

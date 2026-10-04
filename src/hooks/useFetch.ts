@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import type { Product, Data } from "../lib/types";
+import type { Data } from "../lib/types";
 
 export function useFetch(url: string) {
   const [data, setData] = useState<null | Data>(null);
