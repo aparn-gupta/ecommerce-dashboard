@@ -1,8 +1,13 @@
 import { Sun, Moon, ShoppingCart } from "lucide-react";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
   const [mode, setMode] = useState("light");
+
+  const cartVal = useSelector(
+    (state: { cartState: { value: number } }) => state.cartState.value,
+  );
 
   return (
     <div>
@@ -11,6 +16,8 @@ const Navbar = () => {
         <div className=""></div>
         <div className="text-white flex h-full items-center gap-x-5">
           <div>{mode == "light" ? <Sun /> : <Moon />}</div>
+
+          <span>{cartVal}</span>
 
           <ShoppingCart />
         </div>

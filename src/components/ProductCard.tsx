@@ -7,6 +7,8 @@ interface ProductProps {
 }
 import { Minus, Plus } from "lucide-react";
 import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { increment, decrement, reset } from "../lib/cartSlice";
 
 const ProductCard = ({
   title,
@@ -14,44 +16,58 @@ const ProductCard = ({
   discountPercent,
   thumbnail,
 }: ProductProps) => {
+  // const [productCount, setProductCount] = useState(0);
+
   const calcOriginalPrice = (givenPrice: number, percentage: number) => {
     if (!givenPrice) return "NA";
     return ((givenPrice * 100) / (100 - percentage)).toFixed(2);
   };
 
-  const [productCount, setProductCount] = useState(0);
+  const dispatch = useDispatch();
+
+  const productCount = useSelector(
+    (state: { cartState: { value: number } }) => state.cartState.value,
+  );
 
   const addProducts = () => {
-    setProductCount((prev) => prev + 1);
+    // setProductCount((prev) => prev + 1);
+    dispatch(increment());
   };
 
   const minusProducts = () => {
-    setProductCount((prev) => prev - 1);
+    dispatch(decrement());
+    // dispatch(reset());
+    // setProductCount((prev) => prev - 1);
   };
 
   return (
-    <div>
-      <div className=" w-full h-auto flex justify-center items-center object-cover rounded-2xl bg-zinc-100 hover:shadow-xl">
-        <img className="w-[90%] h-[90%]" src={thumbnail} />
-      </div>
-      <div className="text-xl text-slate-500 font-semibold mt-3"> {title}</div>
+    <div className="h-106 flex-col justify-between ">
       <div>
-        <span> ${price}</span>
-        {discountPercent ? (
-          <>
-            <span className="text-slate-500 line-through mx-2">
-              {" "}
-              {calcOriginalPrice(price, discountPercent)}{" "}
-            </span>
+        <div className=" w-full h-auto flex justify-center items-center object-cover rounded-2xl bg-zinc-100 hover:shadow-xl">
+          <img className="w-[90%] h-[90%]" src={thumbnail} />
+        </div>
+        <div className="text-xl text-slate-500 font-semibold mt-3">
+          {" "}
+          {title}
+        </div>
+        <div>
+          <span> ${price}</span>
+          {discountPercent ? (
+            <>
+              <span className="text-slate-500 line-through mx-2">
+                {" "}
+                {calcOriginalPrice(price, discountPercent)}{" "}
+              </span>
 
-            <span className="text-green-700 font-semibold ">
-              {" "}
-              {discountPercent}% off{" "}
-            </span>
-          </>
-        ) : (
-          <></>
-        )}
+              <span className="text-green-700 font-semibold ">
+                {" "}
+                {discountPercent}% off{" "}
+              </span>
+            </>
+          ) : (
+            <></>
+          )}
+        </div>
       </div>
 
       {/* <div>
@@ -59,7 +75,7 @@ const ProductCard = ({
         <span> {rating}</span>
       </div> */}
 
-      <div className="mx-2 my-4">
+      <div className="mx-2 my-4 h-9">
         {productCount ? (
           <div className="flex w-28 px-2 h-9 items-center rounded-md text-sm border shadow-sm border-slate-400 justify-between">
             {" "}
