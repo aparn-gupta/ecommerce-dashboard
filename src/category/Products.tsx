@@ -163,6 +163,7 @@ const Products = ({ products }: { products: Product[] }) => {
         {filteredProducts.map((item, i: number) => (
           <div key={i}>
             <ProductCard
+              // productId={item.}
               title={item.title}
               price={item.price}
               discountPercent={Math.round(item.discountPercentage)}

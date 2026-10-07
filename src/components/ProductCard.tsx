@@ -25,17 +25,21 @@ const ProductCard = ({
 
   const dispatch = useDispatch();
 
-  const productCount = useSelector(
-    (state: { cartState: { value: number } }) => state.cartState.value,
-  );
+  // let productCount = 1;
+
+  const cartVal = useSelector((state) => state.cartState.value);
+
+  console.log(cartVal);
+
+  let productCount = cartVal.find((item) => item.id == title)?.quantity ?? 0;
 
   const addProducts = () => {
     // setProductCount((prev) => prev + 1);
-    dispatch(increment());
+    dispatch(increment(title));
   };
 
   const minusProducts = () => {
-    dispatch(decrement());
+    dispatch(decrement(title));
     // dispatch(reset());
     // setProductCount((prev) => prev - 1);
   };
@@ -72,7 +76,7 @@ const ProductCard = ({
 
       {/* <div>
         {" "}
-        <span> {rating}</span>
+        <span onClick={addProducts}> hehehehehe</span>
       </div> */}
 
       <div className="mx-2 my-4 h-9">

@@ -5,9 +5,11 @@ import { useSelector } from "react-redux";
 const Navbar = () => {
   const [mode, setMode] = useState("light");
 
-  const cartVal = useSelector(
-    (state: { cartState: { value: number } }) => state.cartState.value,
-  );
+  const cartVal = useSelector((state) => state.cartState.value);
+
+  const totalQuantity = cartVal.reduce((acc, curr) => {
+    return acc + curr.quantity;
+  }, 0);
 
   return (
     <div>
@@ -17,7 +19,7 @@ const Navbar = () => {
         <div className="text-white flex h-full items-center gap-x-5">
           <div>{mode == "light" ? <Sun /> : <Moon />}</div>
 
-          <span>{cartVal}</span>
+          <span>{totalQuantity}</span>
 
           <ShoppingCart />
         </div>
