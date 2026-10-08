@@ -6,19 +6,22 @@ import ProductBody from "./category/CategoryPage";
 import Dashboard from "./dashboard/DashboardBody";
 import { Provider } from "react-redux";
 import { store } from "./lib/store";
+import ThemeProvider from "./lib/theme.jsx";
 
 function App() {
   return (
     <>
       <Provider store={store}>
-        <BrowserRouter>
-          <Navbar />
-          <Routes>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/category/:name" element={<ProductBody />} />
-          </Routes>
-          <Footer />
-        </BrowserRouter>
+        <ThemeProvider>
+          <BrowserRouter>
+            <Navbar />
+            <Routes>
+              <Route path="/" element={<Dashboard />} />
+              <Route path="/category/:name" element={<ProductBody />} />
+            </Routes>
+            <Footer />
+          </BrowserRouter>
+        </ThemeProvider>
       </Provider>
     </>
   );

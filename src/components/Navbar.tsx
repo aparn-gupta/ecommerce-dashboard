@@ -1,9 +1,12 @@
 import { Sun, Moon, ShoppingCart } from "lucide-react";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useSelector } from "react-redux";
+import { themeContext } from "../lib/theme.jsx";
 
 const Navbar = () => {
-  const [mode, setMode] = useState("light");
+  // const [mode, setMode] = useState("light");
+
+  const { theme, setTheme } = useContext(themeContext);
 
   const cartVal = useSelector((state) => state.cartState.value);
 
@@ -17,11 +20,24 @@ const Navbar = () => {
         <div className="text-yellow-300 font-bold">LOGO</div>
         <div className=""></div>
         <div className="text-white flex h-full items-center gap-x-5">
-          <div>{mode == "light" ? <Sun /> : <Moon />}</div>
+          <div
+            onClick={() =>
+              setTheme((prev) => (prev == "light" ? "dark" : "light"))
+            }
+          >
+            {theme == "light" ? <Sun /> : <Moon />}
+          </div>
 
-          <span>{totalQuantity}</span>
+          <div className="relative h-18 flex justify-center items-center  w-6">
+            <span className="absolute top-4 -right-4  text-white rounded-full w-5 h-5 text-xs z-10 flex justify-center items-center bg-green-600">
+              {totalQuantity}
+            </span>
 
-          <ShoppingCart />
+            <span className="absolute z-0  left-0">
+              {" "}
+              <ShoppingCart />
+            </span>
+          </div>
         </div>
       </div>
     </div>
