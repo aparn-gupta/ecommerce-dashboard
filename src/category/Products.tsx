@@ -12,28 +12,6 @@ const Products = ({ products }: { products: Product[] }) => {
   // console.log(products);
   const { name } = useParams();
 
-  // const handleSort = (key: string, order: string, sortType: string) => {
-  //   setSelectedSortType(sortType);
-
-  //   if (key == "price") {
-  //     if (order == "increasing") {
-  //       processedData.sort((a, b) => a.price - b.price);
-  //     } else processedData.sort((a, b) => b.price - a.price);
-  //   } else {
-  //     // console.log(
-  //     //   new Date(processedData[0].meta.createdAt).getTime() ==
-  //     //     new Date(processedData[0].meta.createdAt).getTime(),
-  //     // );
-  //     processedData.sort(
-  //       (a, b) =>
-  //         new Date(b.meta.createdAt).getTime() -
-  //         new Date(a.meta.createdAt).getTime(),
-  //     );
-  //   }
-
-  //   setProcessedData([...processedData]);
-  // };
-
   const selectedFilters = useMemo(() => {
     const minLimit = searchParams.get("min") || 0;
     const maxLimit = searchParams.get("max") || Infinity;
@@ -107,7 +85,7 @@ const Products = ({ products }: { products: Product[] }) => {
     // const filtered = products;
   }, [selectedFilters, products, selectedSortType]);
 
-  console.log(filteredProducts);
+  // console.log(filteredProducts);
 
   return (
     <div className="bg-background text-foreground border border-custom_border rounded-md w-full p-3  h-[calc(100vh-76px)] overflow-y-scroll">

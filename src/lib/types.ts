@@ -9,6 +9,9 @@ export type Product = {
   };
   rating: number;
   thumbnail: string;
+  description?: string;
+
+  quantity: number;
 };
 
 export type Data = {

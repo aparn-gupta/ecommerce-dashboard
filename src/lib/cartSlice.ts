@@ -1,12 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-export type CartItem = {
+export type CartItemType = {
   id: number;
   quantity: number;
 };
 
 export interface CartState {
-  value: CartItem[];
+  value: CartItemType[];
 }
 
 const cartState: CartState = {

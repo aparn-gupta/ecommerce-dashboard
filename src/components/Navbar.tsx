@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { useSelector } from "react-redux";
 import { themeContext } from "../lib/theme.jsx";
 import { Link } from "react-router";
-import type { CartItem } from "../lib/cartSlice.js";
+import type { CartItemType } from "../lib/cartSlice.js";
 
 const Navbar = () => {
   // const [mode, setMode] = useState("light");
@@ -20,7 +20,7 @@ const Navbar = () => {
 
   const cartVal = useSelector((state: any) => state.cartState.value);
 
-  const totalQuantity = cartVal.reduce((acc: number, curr: CartItem) => {
+  const totalQuantity = cartVal.reduce((acc: number, curr: CartItemType) => {
     return acc + curr.quantity;
   }, 0);
 
@@ -41,16 +41,18 @@ const Navbar = () => {
             {theme == "light" ? <Sun /> : <Moon />}
           </div>
 
-          <div className="relative h-18 flex justify-center items-center  w-6">
-            <span className="absolute top-4 -right-4  text-white rounded-full w-5 h-5 text-xs z-10 flex justify-center items-center bg-green-600">
-              {totalQuantity}
-            </span>
+          <Link to={"/checkout"}>
+            <div className="relative h-18 flex justify-center items-center  w-6">
+              <span className="absolute top-4 -right-4  text-white rounded-full w-5 h-5 text-xs z-10 flex justify-center items-center bg-green-600">
+                {totalQuantity}
+              </span>
 
-            <span className="absolute z-0  left-0">
-              {" "}
-              <ShoppingCart />
-            </span>
-          </div>
+              <span className="absolute z-0  left-0">
+                {" "}
+                <ShoppingCart />
+              </span>
+            </div>
+          </Link>
         </div>
       </div>
     </div>

@@ -8,9 +8,12 @@ interface ProductProps {
 }
 import { Minus, Plus } from "lucide-react";
 import { useSelector, useDispatch } from "react-redux";
-import { add, remove } from "../lib/cartSlice";
-import { themeContext } from "../lib/theme.jsx";
-import { useContext } from "react";
+import { add, remove, type CartItemType } from "../lib/cartSlice";
+
+export const calcOriginalPrice = (givenPrice: number, percentage: number) => {
+  if (!givenPrice) return "NA";
+  return ((givenPrice * 100) / (100 - percentage)).toFixed(2);
+};
 
 const ProductCard = ({
   productId,
@@ -21,21 +24,16 @@ const ProductCard = ({
 }: ProductProps) => {
   // const [productCount, setProductCount] = useState(0);
 
-  const calcOriginalPrice = (givenPrice: number, percentage: number) => {
-    if (!givenPrice) return "NA";
-    return ((givenPrice * 100) / (100 - percentage)).toFixed(2);
-  };
-
   const dispatch = useDispatch();
 
   // let productCount = 1;
 
-  const cartVal = useSelector((state) => state.cartState.value);
+  const cartVal = useSelector((state: any) => state.cartState.value);
 
   // console.log(cartVal);
 
   let productCount =
-    cartVal.find((item) => item.id == productId)?.quantity ?? 0;
+    cartVal.find((item: CartItemType) => item.id == productId)?.quantity ?? 0;
 
   const addProducts = () => {
     // setProductCount((prev) => prev + 1);
@@ -51,7 +49,7 @@ const ProductCard = ({
     // setProductCount((prev) => prev - 1);
   };
 
-  const { theme, setTheme } = useContext(themeContext);
+  // const { theme, setTheme } = useContext(themeContext);
 
   return (
     <div

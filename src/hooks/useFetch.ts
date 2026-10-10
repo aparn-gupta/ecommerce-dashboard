@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import type { Data } from "../lib/types";
+import type { Data, Product } from "../lib/types";
 
 export function useFetch(url: string) {
-  const [data, setData] = useState<null | Data>(null);
+  const [data, setData] = useState<null | Data | Product>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<Error | null | unknown>("");
 
