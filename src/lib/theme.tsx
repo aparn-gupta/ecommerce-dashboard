@@ -1,8 +1,17 @@
 import { createContext, useState } from "react";
 
-export const themeContext = createContext("");
+interface ThemeContextType {
+  theme: string;
+  setTheme: React.Dispatch<React.SetStateAction<string>>;
+}
 
-export default function themeComponent({ children }) {
+export const themeContext = createContext({} as ThemeContextType);
+
+export default function themeComponent({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const [theme, setTheme] = useState("light");
 
   return (

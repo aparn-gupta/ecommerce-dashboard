@@ -21,6 +21,8 @@ const CategoryPage = () => {
   // console.log(data);
   const products = data?.products ?? [];
 
+  localStorage.setItem("viewedProducts", JSON.stringify(products));
+
   // const handleFiltering = () => {};
 
   return (
@@ -33,7 +35,7 @@ const CategoryPage = () => {
         <div> No products found</div>
       ) : (
         <div>
-          <div className="w-full flex gap-3.5 p-4 h-screen bg-pageBg">
+          <div className="w-full flex gap-3.5 p-4 h-screen bg-page_bg">
             <div className="w-[22%] ">
               <FilterPanel products={products} />
             </div>

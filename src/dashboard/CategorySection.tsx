@@ -63,7 +63,7 @@ function CategorySection() {
   }
 
   return (
-    <div className="pb-40">
+    <div className="pb-40 bg-background text-foreground">
       <h1 className="text-4xl py-6"> Categories</h1>
       <div className="w-[80vw] mx-auto mt-5">
         {loading ? (

@@ -1,23 +1,36 @@
 import { Sun, Moon, ShoppingCart } from "lucide-react";
-import { useState, useContext } from "react";
+import { useContext } from "react";
 import { useSelector } from "react-redux";
 import { themeContext } from "../lib/theme.jsx";
+import { Link } from "react-router";
+import type { CartItem } from "../lib/cartSlice.js";
 
 const Navbar = () => {
   // const [mode, setMode] = useState("light");
 
   const { theme, setTheme } = useContext(themeContext);
 
-  const cartVal = useSelector((state) => state.cartState.value);
+  if (theme == "dark") {
+    document.documentElement.classList.add("dark");
+    localStorage.setItem("theme", "dark");
+  } else {
+    document.documentElement.classList.remove("dark");
+    localStorage.setItem("theme", "light");
+  }
 
-  const totalQuantity = cartVal.reduce((acc, curr) => {
+  const cartVal = useSelector((state: any) => state.cartState.value);
+
+  const totalQuantity = cartVal.reduce((acc: number, curr: CartItem) => {
     return acc + curr.quantity;
   }, 0);
 
   return (
     <div>
       <div className="w-screen  mx-auto h-18 shadow-md flex justify-between px-8 bg-nav items-center ">
-        <div className="text-yellow-300 font-bold">LOGO</div>
+        <Link to="/">
+          {" "}
+          <div className="text-yellow-300 font-bold">LOGO</div>
+        </Link>
         <div className=""></div>
         <div className="text-white flex h-full items-center gap-x-5">
           <div

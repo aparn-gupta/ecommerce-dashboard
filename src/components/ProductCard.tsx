@@ -1,4 +1,5 @@
 interface ProductProps {
+  productId: number | string;
   title: string;
   price: number;
   discountPercent: number;
@@ -7,11 +8,12 @@ interface ProductProps {
 }
 import { Minus, Plus } from "lucide-react";
 import { useSelector, useDispatch } from "react-redux";
-import { increment, decrement } from "../lib/cartSlice";
+import { add, remove } from "../lib/cartSlice";
 import { themeContext } from "../lib/theme.jsx";
 import { useContext } from "react";
 
 const ProductCard = ({
+  productId,
   title,
   price,
   discountPercent,
@@ -30,17 +32,21 @@ const ProductCard = ({
 
   const cartVal = useSelector((state) => state.cartState.value);
 
-  console.log(cartVal);
+  // console.log(cartVal);
 
-  let productCount = cartVal.find((item) => item.id == title)?.quantity ?? 0;
+  let productCount =
+    cartVal.find((item) => item.id == productId)?.quantity ?? 0;
 
   const addProducts = () => {
     // setProductCount((prev) => prev + 1);
-    dispatch(increment(title));
+    dispatch(add(productId));
+    localStorage.setItem("cartVal", JSON.stringify(cartVal));
   };
 
   const minusProducts = () => {
-    dispatch(decrement(title));
+    dispatch(remove(productId));
+    localStorage.setItem("cartVal", JSON.stringify(cartVal));
+
     // dispatch(reset());
     // setProductCount((prev) => prev - 1);
   };
@@ -49,7 +55,8 @@ const ProductCard = ({
 
   return (
     <div
-      className={`h-106 flex-col justify-between ${theme == "dark" ? "bg-zinc-950" : "bg-white"}`}
+      // className={`h-106 flex-col justify-between ${theme == "dark" ? "bg-zinc-950" : "bg-white"}`}
+      className={`h-106 flex-col justify-between bg-background text-foreground`}
     >
       <div>
         <div className=" w-full h-auto flex justify-center items-center object-cover rounded-2xl bg-zinc-100 hover:shadow-xl">
@@ -57,15 +64,12 @@ const ProductCard = ({
         </div>
         <div className="h-24 px-3">
           {" "}
-          <div className="text-xl text-slate-500 font-semibold mt-3 ">
-            {" "}
-            {title}
-          </div>
+          <div className="text-xl text-muted font-semibold mt-3 "> {title}</div>
           <div>
             <span> ${price}</span>
             {discountPercent ? (
               <>
-                <span className="text-slate-500 line-through mx-2">
+                <span className="text-muted line-through mx-2">
                   {" "}
                   {calcOriginalPrice(price, discountPercent)}{" "}
                 </span>
@@ -91,13 +95,13 @@ const ProductCard = ({
         {productCount ? (
           <div className="flex w-28 px-2 h-9 items-center rounded-md text-sm border shadow-sm border-slate-400 justify-between">
             {" "}
-            <button className=" text-slate-500  " onClick={addProducts}>
+            <button className=" text-muted  " onClick={addProducts}>
               <Plus size={18} />
             </button>
             <span className="  flex rounded-md  text-nav font-semibold text-lg ">
               {productCount}
             </span>
-            <button className="text-slate-500  " onClick={minusProducts}>
+            <button className="text-muted  " onClick={minusProducts}>
               <Minus size={18} />
             </button>
           </div>
