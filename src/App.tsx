@@ -4,9 +4,7 @@ import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router";
 import ProductBody from "./category/CategoryPage";
 import Dashboard from "./dashboard/DashboardBody";
-import { Provider } from "react-redux";
-import { store } from "./lib/store";
-import ThemeProvider from "./lib/theme.jsx";
+
 import { useEffect, useContext } from "react";
 import { themeContext } from "./lib/theme.jsx";
 import CheckoutPage from "./checkout/CheckoutPage.js";
@@ -21,12 +19,14 @@ function App() {
   useEffect(() => {
     const storedTheme = localStorage.getItem("theme");
 
+    console.log(storedTheme);
+
     if (storedTheme == "dark") {
       document.documentElement.classList.add("dark");
       setTheme("dark");
     } else {
       document.documentElement.classList.remove("dark");
-      // setTheme("light");
+      setTheme("light");
     }
   }, []);
 
@@ -41,19 +41,15 @@ function App() {
 
   return (
     <div className="bg-background text-foreground">
-      {/* <Provider store={store}> */}
-      <ThemeProvider>
-        <BrowserRouter>
-          <Navbar />
-          <Routes>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/category/:name" element={<ProductBody />} />
-            <Route path="/checkout" element={<CheckoutPage />} />
-          </Routes>
-          <Footer />
-        </BrowserRouter>
-      </ThemeProvider>
-      {/* </Provider> */}
+      <BrowserRouter>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/category/:name" element={<ProductBody />} />
+          <Route path="/checkout" element={<CheckoutPage />} />
+        </Routes>
+        <Footer />
+      </BrowserRouter>
     </div>
   );
 }

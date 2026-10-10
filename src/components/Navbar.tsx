@@ -10,14 +10,6 @@ const Navbar = () => {
 
   const { theme, setTheme } = useContext(themeContext);
 
-  if (theme == "dark") {
-    document.documentElement.classList.add("dark");
-    localStorage.setItem("theme", "dark");
-  } else {
-    document.documentElement.classList.remove("dark");
-    localStorage.setItem("theme", "light");
-  }
-
   const cartVal = useSelector((state: any) => state.cartState.value);
 
   const totalQuantity = cartVal.reduce((acc: number, curr: CartItemType) => {
@@ -35,7 +27,17 @@ const Navbar = () => {
         <div className="text-white flex h-full items-center gap-x-5">
           <div
             onClick={() =>
-              setTheme((prev) => (prev == "light" ? "dark" : "light"))
+              setTheme((prev) => {
+                if (prev == "light") {
+                  document.documentElement.classList.add("dark");
+                  localStorage.setItem("theme", "dark");
+                  return "dark";
+                } else {
+                  document.documentElement.classList.remove("dark");
+                  localStorage.setItem("theme", "light");
+                  return "light";
+                }
+              })
             }
           >
             {theme == "light" ? <Sun /> : <Moon />}

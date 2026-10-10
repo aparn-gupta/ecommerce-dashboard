@@ -4,11 +4,14 @@ import "./index.css";
 import App from "./App.tsx";
 import { Provider } from "react-redux";
 import { store } from "./lib/store";
+import ThemeProvider from "./lib/theme.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <Provider store={store}>
-    <StrictMode>
-      <App />
-    </StrictMode>
+    <ThemeProvider>
+      <StrictMode>
+        <App />
+      </StrictMode>
+    </ThemeProvider>
   </Provider>,
 );

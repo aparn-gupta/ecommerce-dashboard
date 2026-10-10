@@ -25,21 +25,18 @@ const CheckoutPage = () => {
         cartVal.map(async (item: CartItemType) => {
           const res = await fetch(`https://dummyjson.com/products/${item.id}`);
           if (!res.ok) throw new Error(`Failed to load product ${item.id}`);
-          return await res.json(); // Explicitly returns the data so 'value' is populated
+          return await res.json();
         }),
       );
 
-      // 1. Filter out failed requests and pull out the data
       const successfulProducts = results
         .filter((item) => item.status === "fulfilled")
         .map((item) => item.value);
 
-      // 2. Map of cart quantities: [id -> quantity]
       const cartValMap = new Map(
         cartVal.map((item: CartItemType) => [item.id, item.quantity]),
       );
 
-      // 3. Merge product data with quantity
       const mergedWithCart = successfulProducts.map((product) => ({
         ...product,
         quantity: cartValMap.get(product.id) ?? 1,
@@ -60,11 +57,13 @@ const CheckoutPage = () => {
     }
   }, [cartVal]);
 
-  console.log(cartProducts);
+  // console.log(cartProducts);
 
   return (
     <div className="bg-page_bg w-screen ">
       <div className="w-[85vw] mx-auto text-foreground p-4">
+        <div className="text-2xl">Check out</div>
+
         {loading ? (
           <div>Loading...</div>
         ) : error ? (
