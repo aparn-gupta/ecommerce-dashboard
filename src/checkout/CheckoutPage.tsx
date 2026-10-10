@@ -1,11 +1,10 @@
 import CartItem from "../components/CartItem";
 import { useSelector } from "react-redux";
-import type { CartItemType } from "../lib/cartSlice";
 import CartPriceDetails from "../components/CartPriceDetails";
 import { type Product } from "../lib/types";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { setCart } from "../lib/cartSlice";
+import type { CartItemType } from "../lib/cartSlice";
+
 // import "@coreui/coreui-pro/dist/css/coreui.min.css";
 
 const CheckoutPage = () => {
@@ -23,7 +22,7 @@ const CheckoutPage = () => {
 
     try {
       const results = await Promise.allSettled(
-        cartVal.map(async (item) => {
+        cartVal.map(async (item: CartItemType) => {
           const res = await fetch(`https://dummyjson.com/products/${item.id}`);
           if (!res.ok) throw new Error(`Failed to load product ${item.id}`);
           return await res.json(); // Explicitly returns the data so 'value' is populated
@@ -37,7 +36,7 @@ const CheckoutPage = () => {
 
       // 2. Map of cart quantities: [id -> quantity]
       const cartValMap = new Map(
-        cartVal.map((item) => [item.id, item.quantity]),
+        cartVal.map((item: CartItemType) => [item.id, item.quantity]),
       );
 
       // 3. Merge product data with quantity

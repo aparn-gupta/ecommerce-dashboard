@@ -1,42 +1,14 @@
-import { useFetch } from "../hooks/useFetch";
 import type { Product } from "../lib/types";
-import { type CartItemType } from "../lib/cartSlice";
 import { calcOriginalPrice } from "./ProductCard";
-// import { CRating } from "@coreui/react-pro";
-// import { RatingReadOnlyExample } from "./Rating";
-interface cartItemProps {
-  //   imageSrc: string;
-  //   name: string;
-  //   description: string;
-  //   rating: number;
-  //   discountPercent: number;
-  //   price: number;
-  // quantity: number;
-  // id: number;
-}
 
 const CartItem = ({ item }: { item: Product }) => {
-  // const productsUrl = `https://dummyjson.com/products/${item?.id}`;
-  // const {
-  //   data,
-  //   loading,
-  //   error,
-  // }: { data: Product | null; loading: boolean; error: Error | null | unknown } =
-  //   useFetch(productsUrl);
-  // console.log(item);
-
-  const originalPrice = calcOriginalPrice(
+  const originalPrice: number | string = calcOriginalPrice(
     item?.price,
     item?.discountPercentage,
   );
 
   return (
     <div className="bg-background text-foreground p-4 border border-custom_border mt-2 rounded-sm w-full">
-      {/* {loading ? (
-        <div>Loading...</div>
-      ) : error ? (
-        <div> Error loading cart items</div>
-      ) : ( */}
       <div>
         <div className="bg-background text-foreground ">
           <div className="flex h-48 gap-4">
@@ -69,7 +41,7 @@ const CartItem = ({ item }: { item: Product }) => {
                   <>
                     <span className="text-muted line-through mx-2">
                       {" "}
-                      {(item?.quantity * originalPrice).toFixed(2)}
+                      {(item?.quantity * Number(originalPrice)).toFixed(2)}
                     </span>
 
                     <span className="text-green-700 font-semibold ">
@@ -81,13 +53,10 @@ const CartItem = ({ item }: { item: Product }) => {
                   <></>
                 )}
               </div>
-
-              {/* <div>{data?.rating}</div> */}
             </div>
           </div>
         </div>
       </div>
-      {/* )} */}
     </div>
   );
 };
