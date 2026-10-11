@@ -69,7 +69,7 @@ const CartItem = ({ item }: { item: Product }) => {
                 {" "}
                 <div className="text-xl">{item?.title}</div>
                 <button
-                  className="border border-red-400 text-red-500 rounded-md  px-2 text-xs"
+                  className="border border-red-400 text-red-500 dark:text-red-400 rounded-md  px-2 text-xs h-6 "
                   onClick={() => {
                     dispatch(setItemQuantity({ id: item?.id, quantity: 0 }));
                   }}
@@ -77,7 +77,7 @@ const CartItem = ({ item }: { item: Product }) => {
                   Remove
                 </button>
               </div>
-              <div className="text-xs text-muted w-[95%]">
+              <div className="text-xs text-muted w-[92%] mt-2">
                 {item?.description}
               </div>
               <div className="my-2">
