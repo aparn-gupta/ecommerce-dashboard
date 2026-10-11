@@ -83,7 +83,7 @@ const CartItem = ({ item }: { item: Product }) => {
               <div className="my-2">
                 {" "}
                 <Rating
-                  initialRating={3}
+                  initialRating={item?.rating}
                   readonly
                   fullSymbol={
                     <>
