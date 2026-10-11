@@ -51,7 +51,7 @@ const Navbar = () => {
 
               <span className="absolute z-0  left-0">
                 {" "}
-                <ShoppingCart />
+                <ShoppingCart color="white" />
               </span>
             </div>
           </Link>

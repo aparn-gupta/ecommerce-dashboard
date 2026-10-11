@@ -36,7 +36,6 @@ const ProductCard = ({
     cartVal.find((item: CartItemType) => item.id == productId)?.quantity ?? 0;
 
   const addProducts = () => {
-    // setProductCount((prev) => prev + 1);
     dispatch(add(productId));
     localStorage.setItem("cartVal", JSON.stringify(cartVal));
   };
@@ -44,12 +43,7 @@ const ProductCard = ({
   const minusProducts = () => {
     dispatch(remove(productId));
     localStorage.setItem("cartVal", JSON.stringify(cartVal));
-
-    // dispatch(reset());
-    // setProductCount((prev) => prev - 1);
   };
-
-  // const { theme, setTheme } = useContext(themeContext);
 
   return (
     <div
@@ -83,11 +77,6 @@ const ProductCard = ({
           </div>
         </div>
       </div>
-
-      {/* <div>
-        {" "}
-        <span onClick={addProducts}> hehehehehe</span>
-      </div> */}
 
       <div className="mx-2 my-4 h-9">
         {productCount ? (
