@@ -4,6 +4,8 @@ import CartPriceDetails from "../components/CartPriceDetails";
 import { type Product } from "../lib/types";
 import { useEffect, useState } from "react";
 import type { CartItemType } from "../lib/cartSlice";
+import { calcOriginalPrice } from "../components/ProductCard";
+import { Divide } from "lucide-react";
 
 const CheckoutPage = () => {
   const cartVal = useSelector((state: any) => state.cartState.value);
@@ -11,6 +13,10 @@ const CheckoutPage = () => {
   // const cartVal = cartValState.filter(
   //   (item: CartItemType) => item.quantity > 0,
   // );
+
+  // useEffect(() => {
+  //   localStorage.setItem("cartVal", JSON.stringify(cartVal));
+  // }, [cartVal]);
 
   const [cartProducts, setCartProducts] = useState<Product[] | []>([]);
 
@@ -64,25 +70,33 @@ const CheckoutPage = () => {
       acc.totalPrice += Number(curr.quantity) * Number(curr.price);
       acc.totalDiscount += Number(curr.discountPercentage);
       acc.totalQuantity += Number(curr.quantity);
+      acc.originalPrice +=
+        Number(calcOriginalPrice(curr.price, curr.discountPercentage)) *
+        curr.quantity;
       return acc;
     },
-    { totalPrice: 0, totalDiscount: 0, totalQuantity: 0 },
+    { totalPrice: 0, totalDiscount: 0, totalQuantity: 0, originalPrice: 0 },
   );
 
   console.log(totals);
 
   const combinedDiscount = (
-    totals.totalDiscount / totals.totalQuantity
+    100 -
+    (totals.totalPrice * 100) / totals.originalPrice
   ).toFixed(2);
 
   // console.log(cartProducts);
 
   return (
-    <div className="bg-page_bg w-screen ">
+    <div className="bg-page_bg w-screen min-h-screen">
       <div className="w-[85vw] mx-auto text-foreground p-4">
         <div className="text-2xl my-2">Check out</div>
 
-        {loading ? (
+        {!cartProducts?.length ? (
+          <div className="text-xl text-muted mt-6">
+            No items in your cart! Please add something{" "}
+          </div>
+        ) : loading ? (
           <div>Loading...</div>
         ) : error ? (
           <div className="text-red-500">
@@ -99,8 +113,9 @@ const CheckoutPage = () => {
 
             <div className="w-[28%] h-44 mt-2">
               <CartPriceDetails
-                totalPrice={Number(totals.totalPrice.toFixed(2))}
+                totalPrice={Number(totals.originalPrice.toFixed(2))}
                 totalDiscount={Number(combinedDiscount)}
+                totalAmount={Number(totals.totalPrice)}
               />
             </div>
           </div>

@@ -37,12 +37,12 @@ const ProductCard = ({
 
   const addProducts = () => {
     dispatch(add(productId));
-    localStorage.setItem("cartVal", JSON.stringify(cartVal));
+    // localStorage.setItem("cartVal", JSON.stringify(cartVal));
   };
 
   const minusProducts = () => {
     dispatch(remove(productId));
-    localStorage.setItem("cartVal", JSON.stringify(cartVal));
+    // localStorage.setItem("cartVal", JSON.stringify(cartVal));
   };
 
   return (
