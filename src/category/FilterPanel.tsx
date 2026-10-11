@@ -304,7 +304,7 @@ const FilterPanel = ({ products }: { products: Product[] }) => {
     <div className="py-5 px-3 rounded-md h-[calc(100vh-76px)] overflow-y-scroll bg-background text-foreground border border-custom_border">
       <div className="flex flex-wrap gap-y-3 gap-x-3 ">
         {selectedFilters.map((item) => (
-          <div className="bg-zinc-300 p-2   gap-3 flex w-auto h-auto rounded-md">
+          <div className="bg-zinc-300 dark:bg-slate-800  p-2   gap-3 flex w-auto h-auto rounded-md">
             <div className="flex gap-x-1 hover:line-through">
               <span
                 className="mt-1.5"
