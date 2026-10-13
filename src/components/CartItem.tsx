@@ -100,7 +100,7 @@ const CartItem = ({ item }: { item: Product }) => {
               </div>
 
               <div className="my-1.5">
-                <span> ${item?.quantity * item?.price}</span>
+                <span> ${(item?.quantity * item?.price).toFixed(2)}</span>
                 {item?.discountPercentage ? (
                   <>
                     <span className="text-muted line-through mx-2">
