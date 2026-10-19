@@ -77,8 +77,8 @@ function CategorySection() {
                   <div className=" w-full h-auto flex justify-center items-center rounded-2xl ">
                     <div>
                       {" "}
-                      <Skeleton className="w-60 h-52 bg-zinc-200" />
-                      <Skeleton className="w-32 h-6 bg-zinc-200 mt-3 "></Skeleton>
+                      <Skeleton className="w-60 h-52 " />
+                      <Skeleton className="w-32 h-6  mt-3 "></Skeleton>
                     </div>
                   </div>
                 </div>

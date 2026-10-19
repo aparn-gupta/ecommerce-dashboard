@@ -102,17 +102,17 @@ const CheckoutPage = () => {
                   <div className="w-full flex justify-between p-4">
                     <div className="w-[20%]">
                       {" "}
-                      <Skeleton className="w-20 h-20 rounded-xl bg-zinc-200" />
-                      <Skeleton className="w-20 h-5 rounded-xl bg-zinc-200 mt-4" />
+                      <Skeleton className="w-20 h-20 rounded-xl" />
+                      <Skeleton className="w-20 h-5 rounded-xl mt-4" />
                     </div>
 
                     <div className="w-[78%]">
                       {" "}
-                      <Skeleton className="w-56 h-6 bg-zinc-200" />
-                      <Skeleton className="w-150 h-4 mt-2 bg-zinc-200" />
-                      <Skeleton className="w-150 h-4 mt-2 bg-zinc-200" />
-                      <Skeleton className="w-28 h-6 mt-2 bg-zinc-200" />
-                      <Skeleton className="w-48 h-6 mt-2 bg-zinc-200" />
+                      <Skeleton className="w-56 h-6" />
+                      <Skeleton className="w-150 h-4 mt-2" />
+                      <Skeleton className="w-150 h-4 mt-2" />
+                      <Skeleton className="w-28 h-6 mt-2" />
+                      <Skeleton className="w-48 h-6 mt-2" />
                     </div>
                   </div>
                 ))}

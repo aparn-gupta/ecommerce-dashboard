@@ -41,10 +41,10 @@ const CategoryPage = () => {
                   <div className=" w-full h-auto flex justify-center items-center rounded-2xl ">
                     <div>
                       {" "}
-                      <Skeleton className="w-60 h-52 bg-zinc-200" />
-                      <Skeleton className="w-44 h-6 bg-zinc-200 mt-3 "></Skeleton>
-                      <Skeleton className="w-52 h-6 bg-zinc-200 mt-3 "></Skeleton>
-                      <Skeleton className="w-28 h-9 bg-zinc-200 mt-10 "></Skeleton>
+                      <Skeleton className="w-60 h-52" />
+                      <Skeleton className="w-44 h-6 mt-3 "></Skeleton>
+                      <Skeleton className="w-52 h-6 mt-3 "></Skeleton>
+                      <Skeleton className="w-28 h-9 mt-10 "></Skeleton>
                     </div>
                   </div>
                 </div>
