@@ -5,7 +5,7 @@ import { type Product } from "../lib/types";
 import { useEffect, useState } from "react";
 import type { CartItemType } from "../lib/cartSlice";
 import { calcOriginalPrice } from "../components/ProductCard";
-import { Divide } from "lucide-react";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const CheckoutPage = () => {
   const cartVal = useSelector((state: any) => state.cartState.value);
@@ -20,7 +20,7 @@ const CheckoutPage = () => {
 
   const [cartProducts, setCartProducts] = useState<Product[] | []>([]);
 
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<Error | null | unknown>("");
 
   async function fetchProductDetails() {
@@ -92,12 +92,40 @@ const CheckoutPage = () => {
       <div className="w-[85vw] mx-auto text-foreground p-4">
         <div className="text-2xl my-2">Check out</div>
 
-        {!cartProducts?.length ? (
+        {!cartProducts?.length && !loading ? (
+          <div className="flex justify-between">
+            <div className="w-[70%]">
+              {" "}
+              {Array(4)
+                .fill(0)
+                .map((item: Product) => (
+                  <div className="w-full flex justify-between p-4">
+                    <div className="w-[20%]">
+                      {" "}
+                      <Skeleton className="w-20 h-20 rounded-xl bg-zinc-200" />
+                      <Skeleton className="w-20 h-5 rounded-xl bg-zinc-200 mt-4" />
+                    </div>
+
+                    <div className="w-[78%]">
+                      {" "}
+                      <Skeleton className="w-56 h-6 bg-zinc-200" />
+                      <Skeleton className="w-150 h-4 mt-2 bg-zinc-200" />
+                      <Skeleton className="w-150 h-4 mt-2 bg-zinc-200" />
+                      <Skeleton className="w-28 h-6 mt-2 bg-zinc-200" />
+                      <Skeleton className="w-48 h-6 mt-2 bg-zinc-200" />
+                    </div>
+                  </div>
+                ))}
+            </div>
+
+            <div className="w-[28%] h-44 mt-2">
+              <CartPriceDetails loading={true} />
+            </div>
+          </div>
+        ) : loading ? (
           <div className="text-xl text-muted mt-6">
             No items in your cart! Please add something{" "}
           </div>
-        ) : loading ? (
-          <div>Loading...</div>
         ) : error ? (
           <div className="text-red-500">
             Error loading Cart items: {JSON.stringify(error)}
