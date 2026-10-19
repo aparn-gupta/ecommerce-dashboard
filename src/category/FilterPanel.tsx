@@ -110,6 +110,7 @@ const FilterPanel = ({ products }: { products: Product[] }) => {
   // console.log(selectedFilters);
 
   const generateFilterOptions = (dataArr: any[]) => {
+    console.log(dataArr);
     const filterOptions = dataArr.map((item) => (
       <div className="flex gap-2.5 text-lg py-2">
         {" "}

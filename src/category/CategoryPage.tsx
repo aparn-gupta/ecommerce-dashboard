@@ -2,6 +2,7 @@ import FilterPanel from "./FilterPanel";
 import { useParams } from "react-router";
 import { useFetch } from "../hooks/useFetch";
 import type { Data } from "../lib/types";
+import { Skeleton } from "@/components/ui/skeleton";
 
 import Products from "./Products";
 
@@ -21,28 +22,47 @@ const CategoryPage = () => {
   // console.log(data);
   const products = data?.products ?? [];
 
-  localStorage.setItem("viewedProducts", JSON.stringify(products));
+  // localStorage.setItem("viewedProducts", JSON.stringify(products));
 
   // const handleFiltering = () => {};
 
   return (
-    <div>
+    <div className=" w-screen  flex  p-4 h-screen bg-page_bg min-h-screen">
       {loading ? (
-        <div className="text-zinc-500"> Loading...</div>
+        <div className="flex w-full gap-3.5">
+          <div className="w-[22%] ">
+            <FilterPanel products={products} />
+          </div>
+          <div className="grid grid-cols-4 gap-x-4 gap-y-8">
+            {Array(10)
+              .fill(0)
+              .map(() => (
+                <div>
+                  <div className=" w-full h-auto flex justify-center items-center rounded-2xl ">
+                    <div>
+                      {" "}
+                      <Skeleton className="w-60 h-52 bg-zinc-200" />
+                      <Skeleton className="w-44 h-6 bg-zinc-200 mt-3 "></Skeleton>
+                      <Skeleton className="w-52 h-6 bg-zinc-200 mt-3 "></Skeleton>
+                      <Skeleton className="w-28 h-9 bg-zinc-200 mt-10 "></Skeleton>
+                    </div>
+                  </div>
+                </div>
+              ))}
+          </div>
+        </div>
       ) : error ? (
         <div className="text-red-500"> {JSON.stringify(error)} </div>
       ) : !products?.length ? (
         <div> No products found</div>
       ) : (
-        <div>
-          <div className="w-full flex gap-3.5 p-4 h-screen bg-page_bg">
-            <div className="w-[22%] ">
-              <FilterPanel products={products} />
-            </div>
-            <div className="w-full ">
-              {" "}
-              <Products products={products} />
-            </div>
+        <div className="flex w-full gap-3.5">
+          <div className="w-[22%] ">
+            <FilterPanel products={products} />
+          </div>
+          <div className="w-full ">
+            {" "}
+            <Products products={products} />
           </div>
         </div>
       )}

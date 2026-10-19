@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import CategoryCard from "../components/CategoryCard";
 import { Link } from "react-router";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface Product {
   category: string;
@@ -43,8 +44,8 @@ function CategorySection() {
       } catch (err: unknown) {
         console.log(err);
         setError(err);
-      } finally {
         setLoading(false);
+      } finally {
       }
     };
 
@@ -60,6 +61,7 @@ function CategorySection() {
     }
 
     setProductsData(uniqueProducts);
+    setLoading(false);
   }
 
   return (
@@ -67,11 +69,25 @@ function CategorySection() {
       <h1 className="text-4xl py-6"> Categories</h1>
       <div className="w-[80vw] mx-auto mt-5">
         {loading ? (
-          <div>Loading...</div>
+          <div className="grid grid-cols-4 gap-x-4 gap-y-8">
+            {Array(10)
+              .fill(0)
+              .map(() => (
+                <div>
+                  <div className=" w-full h-auto flex justify-center items-center rounded-2xl ">
+                    <div>
+                      {" "}
+                      <Skeleton className="w-60 h-52 bg-zinc-200" />
+                      <Skeleton className="w-32 h-6 bg-zinc-200 mt-3 "></Skeleton>
+                    </div>
+                  </div>
+                </div>
+              ))}
+          </div>
         ) : error ? (
           <div className="text-red-500">{JSON.stringify(error)}</div>
-        ) : !productsData.length ? (
-          <div>No category data found</div>
+        ) : !loading && !productsData.length ? (
+          <div>No Product categories found!</div>
         ) : (
           <div className="grid grid-cols-4 gap-x-4 gap-y-8">
             {productsData.map((item, i) => (

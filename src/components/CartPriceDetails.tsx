@@ -19,7 +19,7 @@ const CartPriceDetails = ({
 
   // console.log("keyId: " + keyId);
 
-  const razorpayPaymentServer = `ttps://razorpay-payment-server.vercel.app`;
+  const razorpayPaymentServer = `https://razorpay-payment-server.vercel.app`;
 
   const processPayment = async (e: any) => {
     const orderUrl = `${razorpayPaymentServer}/order`;
