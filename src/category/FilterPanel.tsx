@@ -74,7 +74,7 @@ const FilterPanel = ({ products }: { products: Product[] }) => {
 
     if (filterKey == "price") {
       if (filterValue == "NA") {
-        console.log("selected remove min");
+        // console.log("selected remove min");
         handleFilterRemoval(filterKey, filterName, filterValue);
         return;
       }
@@ -110,7 +110,7 @@ const FilterPanel = ({ products }: { products: Product[] }) => {
   // console.log(selectedFilters);
 
   const generateFilterOptions = (dataArr: any[]) => {
-    console.log(dataArr);
+    // console.log(dataArr);
     const filterOptions = dataArr.map((item) => (
       <div className="flex gap-2.5 text-lg py-2">
         {" "}
@@ -123,7 +123,7 @@ const FilterPanel = ({ products }: { products: Product[] }) => {
             (filter) => filter.filterName == item.name,
           )}
           onChange={(e) => {
-            console.log(e.target.checked);
+            // console.log(e.target.checked);
             if (e.target.checked) {
               handleFilterSelection(item.key, item.name, item.value);
             } else {
@@ -291,7 +291,7 @@ const FilterPanel = ({ products }: { products: Product[] }) => {
       (item) => item.filterName != filterName,
     );
 
-    console.log(remainingFilters);
+    // console.log(remainingFilters);
 
     setSelectedFilters(remainingFilters);
   };

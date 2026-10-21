@@ -88,7 +88,7 @@ const Products = ({ products }: { products: Product[] }) => {
   // console.log(filteredProducts);
 
   return (
-    <div className="bg-background text-foreground border border-custom_border rounded-md w-full p-3  h-[calc(100vh-76px)] overflow-y-scroll">
+    <div className="bg-background text-foreground border border-custom_border rounded-md w-full p-3  ">
       <div className="flex mt-5 px-3 mb-7">
         <h1 className="text-3xl  capitalize "> {name ?? ""}</h1>{" "}
         <span className="text-zinc-500 pt-2 ml-3">

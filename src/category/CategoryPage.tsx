@@ -3,6 +3,7 @@ import { useParams, useSearchParams } from "react-router";
 import { useFetch } from "../hooks/useFetch";
 import type { Data } from "../lib/types";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useEffect, useRef, useState } from "react";
 
 import Products from "./Products";
 
@@ -13,6 +14,10 @@ const CategoryPage = () => {
 
   const searchTerm = searchParams.get("search") || "";
 
+  const observerRef = useRef(null);
+
+  // const [targetEl, setTargetEl] = useState(null);
+
   let productsUrl;
 
   if (name) {
@@ -21,14 +26,38 @@ const CategoryPage = () => {
     productsUrl = `https://dummyjson.com/products/search?q=${searchTerm}`;
   }
 
-  // const productsUrl = ``;
-
   const {
     data,
     loading,
     error,
   }: { data: Data | null; loading: boolean; error: Error | null | unknown } =
     useFetch(productsUrl);
+
+  useEffect(() => {
+    // console.log("heheheh");
+    const targetEl = observerRef.current;
+
+    if (!targetEl) return;
+    console.log(targetEl);
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          console.log("element visisble");
+        }
+      },
+      { threshold: 0.3 },
+    );
+
+    observer.observe(targetEl);
+
+    return () => {
+      if (targetEl) {
+        observer.disconnect();
+      }
+    };
+  }, [loading]);
+
+  // const productsUrl = ``;
 
   // console.log(data);
   const products = data?.products ?? [];
@@ -38,7 +67,7 @@ const CategoryPage = () => {
   // const handleFiltering = () => {};
 
   return (
-    <div className=" w-screen  flex  p-4 h-screen bg-page_bg min-h-screen">
+    <div className=" w-screen   p-4 h-screen bg-page_bg min-h-screen">
       {loading ? (
         <div className="flex w-full gap-3.5">
           <div className="w-[22%] ">
@@ -67,15 +96,20 @@ const CategoryPage = () => {
       ) : !products?.length ? (
         <div> No products found</div>
       ) : (
-        <div className="flex w-full gap-3.5">
-          <div className="w-[22%] ">
-            <FilterPanel products={products} />
+        <>
+          <div className="flex w-full gap-3.5">
+            <div className="w-[22%] ">
+              <FilterPanel products={products} />
+            </div>
+            <div className="w-full  h-[calc(100vh-76px)] overflow-y-scroll">
+              {" "}
+              <Products products={products} />
+              <div className="w-full h-3 bg-pink-500" ref={observerRef}>
+                hehe{" "}
+              </div>
+            </div>
           </div>
-          <div className="w-full ">
-            {" "}
-            <Products products={products} />
-          </div>
-        </div>
+        </>
       )}
     </div>
   );

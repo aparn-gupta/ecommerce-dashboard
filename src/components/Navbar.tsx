@@ -40,6 +40,7 @@ const Navbar = () => {
           <input
             className="w-[750px] h-10 rounded-full search-bar-bg "
             onChange={(e) => setSearchTerm(e.target.value)}
+            placeholder="Search..."
           />
           <div className="absolute right-3.5 " onClick={handleSearch}>
             <Search color="#efefefcc" />
