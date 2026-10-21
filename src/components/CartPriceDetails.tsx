@@ -123,8 +123,6 @@ const CartPriceDetails = ({
               <Skeleton className="w-76 h-5" />
             </div>
 
-            <div className="border border-b border-muted my-3"></div>
-
             <div className="w-full my-2">
               {" "}
               <Skeleton className="w-76 h-5" />

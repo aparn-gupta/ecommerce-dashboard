@@ -1,5 +1,5 @@
 import FilterPanel from "./FilterPanel";
-import { useParams } from "react-router";
+import { useParams, useSearchParams } from "react-router";
 import { useFetch } from "../hooks/useFetch";
 import type { Data } from "../lib/types";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -9,7 +9,18 @@ import Products from "./Products";
 const CategoryPage = () => {
   const { name } = useParams();
 
-  const productsUrl = `https://dummyjson.com/products/category/${name}`;
+  const [searchParams] = useSearchParams();
+
+  const searchTerm = searchParams.get("search") || "";
+
+  let productsUrl;
+
+  if (name) {
+    productsUrl = `https://dummyjson.com/products/category/${name}`;
+  } else {
+    productsUrl = `https://dummyjson.com/products/search?q=${searchTerm}`;
+  }
+
   // const productsUrl = ``;
 
   const {

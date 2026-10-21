@@ -45,7 +45,7 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<Dashboard />} />
-          <Route path="/category/:name" element={<ProductBody />} />
+          <Route path="/category/:name?" element={<ProductBody />} />
           <Route path="/checkout" element={<CheckoutPage />} />
         </Routes>
         <Footer />

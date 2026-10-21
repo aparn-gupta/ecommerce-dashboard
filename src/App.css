@@ -147,3 +147,15 @@
     @apply font-sans;
   }
 }
+
+.search-bar-bg {
+  border: 1px solid rgba(176, 212, 246, 0.386);
+  background: #619dfcc4;
+  outline: none;
+  padding: 1rem;
+  color: white;
+}
+
+.hehe {
+  background: #efefefcc;
+}

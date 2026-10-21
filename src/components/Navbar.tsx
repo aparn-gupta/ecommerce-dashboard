@@ -1,9 +1,11 @@
 import { Sun, Moon, ShoppingCart } from "lucide-react";
-import { useContext } from "react";
+import { useState, useContext } from "react";
 import { useSelector } from "react-redux";
 import { themeContext } from "../lib/theme.jsx";
-import { Link } from "react-router";
+import { Link, useSearchParams } from "react-router";
 import type { CartItemType } from "../lib/cartSlice.js";
+import { Search } from "lucide-react";
+import { useNavigate } from "react-router";
 
 const Navbar = () => {
   // const [mode, setMode] = useState("light");
@@ -12,9 +14,20 @@ const Navbar = () => {
 
   const cartVal = useSelector((state: any) => state.cartState.value);
 
+  // const [searchParams, setSearchParams] = useSearchParams();
+
+  const navigate = useNavigate();
+
   const totalQuantity = cartVal.reduce((acc: number, curr: CartItemType) => {
     return acc + curr.quantity;
   }, 0);
+
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const handleSearch = () => {
+    console.log(searchTerm);
+    navigate(`/category?search=${searchTerm}`);
+  };
 
   return (
     <div>
@@ -23,7 +36,15 @@ const Navbar = () => {
           {" "}
           <div className="text-yellow-300 font-bold">LOGO</div>
         </Link>
-        <div className=""></div>
+        <div className="relative flex w-138 items-center h-11 ">
+          <input
+            className="w-[750px] h-10 rounded-full search-bar-bg "
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+          <div className="absolute right-3.5 " onClick={handleSearch}>
+            <Search color="#efefefcc" />
+          </div>
+        </div>
         <div className="text-white flex h-full items-center gap-x-5">
           <div
             onClick={() =>
