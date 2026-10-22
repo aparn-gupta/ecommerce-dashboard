@@ -25,7 +25,7 @@ const Navbar = () => {
   const [searchTerm, setSearchTerm] = useState("");
 
   const handleSearch = () => {
-    console.log(searchTerm);
+    // console.log(searchTerm);
     navigate(`/category?search=${searchTerm}`);
   };
 

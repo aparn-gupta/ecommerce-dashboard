@@ -1,9 +1,8 @@
 import FilterPanel from "./FilterPanel";
 import { useParams, useSearchParams } from "react-router";
-import { useFetch } from "../hooks/useFetch";
-import type { Data } from "../lib/types";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useEffect, useRef, useState } from "react";
+import type { Product } from "../lib/types";
 
 import Products from "./Products";
 
@@ -14,35 +13,72 @@ const CategoryPage = () => {
 
   const searchTerm = searchParams.get("search") || "";
 
+  const [products, setProducts] = useState<Product[]>([]);
+  const [searchProducts, setSearchProducts] = useState<Product[]>([]);
+
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<Error | null | unknown>("");
+
+  let skipRef = useRef(0);
   const observerRef = useRef(null);
 
-  // const [targetEl, setTargetEl] = useState(null);
+  // const [targetEl, setTargetEl] = useState<any>(null);
 
   let productsUrl;
 
   if (name) {
     productsUrl = `https://dummyjson.com/products/category/${name}`;
   } else {
-    productsUrl = `https://dummyjson.com/products/search?q=${searchTerm}`;
+    productsUrl = `https://dummyjson.com/products/search?q=${searchTerm}&limit=12&skip=${skipRef.current}`;
   }
 
-  const {
-    data,
-    loading,
-    error,
-  }: { data: Data | null; loading: boolean; error: Error | null | unknown } =
-    useFetch(productsUrl);
+  // console.log(productsUrl, name);
+
+  const fetchData = async (url: string) => {
+    console.log("run. fetch");
+    setLoading(true);
+
+    try {
+      const response = await fetch(url);
+      const result = await response.json();
+
+      // console.log(result.products);
+
+      if (name) {
+        setProducts(result?.products);
+      } else {
+        setSearchProducts((prev) => [...prev, ...result?.products]);
+      }
+    } catch (err: unknown) {
+      console.log(err);
+      setError(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    setSearchProducts([]);
+
+    console.log("heheheh");
+
+    fetchData(productsUrl);
+  }, [searchTerm]);
 
   useEffect(() => {
     // console.log("heheheh");
     const targetEl = observerRef.current;
 
-    if (!targetEl) return;
+    if (!targetEl || name) return;
     console.log(targetEl);
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          console.log("element visisble");
+          console.log("element visssible");
+          skipRef.current += 10;
+          fetchData(
+            `https://dummyjson.com/products/search?q=${searchTerm}&limit=12&&skip=${skipRef.current}`,
+          );
         }
       },
       { threshold: 0.3 },
@@ -55,16 +91,13 @@ const CategoryPage = () => {
         observer.disconnect();
       }
     };
-  }, [loading]);
+  }, []);
 
   // const productsUrl = ``;
 
   // console.log(data);
-  const products = data?.products ?? [];
 
   // localStorage.setItem("viewedProducts", JSON.stringify(products));
-
-  // const handleFiltering = () => {};
 
   return (
     <div className=" w-screen   p-4 h-screen bg-page_bg min-h-screen">
@@ -92,25 +125,33 @@ const CategoryPage = () => {
           </div>
         </div>
       ) : error ? (
-        <div className="text-red-500"> {JSON.stringify(error)} </div>
-      ) : !products?.length ? (
-        <div> No products found</div>
+        <div className="text-red-500 w-full text-md text-center">
+          {" "}
+          {JSON.stringify(error)}{" "}
+        </div>
+      ) : !products?.length && !searchProducts?.length ? (
+        <div className="w-full text-2xl text-muted text-center">
+          {" "}
+          No products found
+        </div>
       ) : (
-        <>
-          <div className="flex w-full gap-3.5">
-            <div className="w-[22%] ">
-              <FilterPanel products={products} />
-            </div>
-            <div className="w-full  h-[calc(100vh-76px)] overflow-y-scroll">
+        <></>
+      )}
+
+      <>
+        <div className="flex w-full gap-3.5">
+          <div className="w-[22%] ">
+            <FilterPanel products={products} />
+          </div>
+          <div className="w-full  h-[calc(100vh-76px)] overflow-y-scroll">
+            {" "}
+            <Products products={name ? products : searchProducts} />
+            <div className="w-full h-3" ref={observerRef}>
               {" "}
-              <Products products={products} />
-              <div className="w-full h-3 bg-pink-500" ref={observerRef}>
-                hehe{" "}
-              </div>
             </div>
           </div>
-        </>
-      )}
+        </div>
+      </>
     </div>
   );
 };

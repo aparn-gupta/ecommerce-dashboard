@@ -72,8 +72,8 @@ function CategorySection() {
           <div className="grid grid-cols-4 gap-x-4 gap-y-8">
             {Array(10)
               .fill(0)
-              .map(() => (
-                <div>
+              .map((_, i) => (
+                <div key={i}>
                   <div className=" w-full h-auto flex justify-center items-center rounded-2xl ">
                     <div>
                       {" "}
