@@ -12,6 +12,8 @@ export type Product = {
   description?: string;
 
   quantity: number;
+  category: string;
+  tags: string[];
 };
 
 export type Data = {

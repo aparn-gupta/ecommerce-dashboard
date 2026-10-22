@@ -18,6 +18,7 @@ const CategoryPage = () => {
 
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<Error | null | unknown>("");
+  const [hasMore, setHasMore] = useState(true);
 
   let skipRef = useRef(0);
   const observerRef = useRef(null);
@@ -47,7 +48,17 @@ const CategoryPage = () => {
       if (name) {
         setProducts(result?.products);
       } else {
+        // const filtered = result?.products.filter(
+        //   (item: Product) =>
+        //     item.title.includes(searchTerm) ||
+        //     item.category.includes(searchTerm) ||
+        //     item.brand.includes(searchTerm) ||
+        //     item.tags.includes(searchTerm),
+        // );
+        // setSearchProducts((prev) => [...prev, ...filtered]);
         setSearchProducts((prev) => [...prev, ...result?.products]);
+
+        setHasMore(result.total > searchProducts.length);
       }
     } catch (err: unknown) {
       console.log(err);
@@ -75,10 +86,13 @@ const CategoryPage = () => {
       ([entry]) => {
         if (entry.isIntersecting) {
           console.log("element visssible");
-          skipRef.current += 10;
-          fetchData(
-            `https://dummyjson.com/products/search?q=${searchTerm}&limit=12&&skip=${skipRef.current}`,
-          );
+          skipRef.current += 12;
+
+          if (hasMore) {
+            fetchData(
+              `https://dummyjson.com/products/search?q=${searchTerm}&limit=12&&skip=${skipRef.current}`,
+            );
+          }
         }
       },
       { threshold: 0.3 },

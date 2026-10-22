@@ -55,8 +55,14 @@ const FilterPanel = ({ products }: { products: Product[] }) => {
   let brandSet = new Set();
 
   for (let each of products) {
-    brandSet.add(each.brand);
+    if (each.brand) {
+      brandSet.add(each.brand);
+    }
   }
+
+  // console.log("brandset size:" + brandSet.size);
+
+  console.log(brandSet);
 
   const brandValues = Array.from(brandSet).map((item) => ({
     // filterId: filterId++,
@@ -260,6 +266,8 @@ const FilterPanel = ({ products }: { products: Product[] }) => {
     },
   ];
 
+  console.log(filterTypes);
+
   const handleFilterRemoval = (
     filterKey: string,
     filterName: string,
@@ -343,24 +351,30 @@ const FilterPanel = ({ products }: { products: Product[] }) => {
 
       {filterTypes.map((item, i) => (
         <div key={i}>
-          <div
-            className={`border-b uppercase font-semibold  border-zinc-300 h-18 px-5 w-full flex justify-between items-center `}
-          >
-            {" "}
-            {item.name}{" "}
-            <span
-              onClick={() => handleExpand(item.id)}
-              className="cursor-pointer"
-            >
-              <ChevronDown />
-            </span>
-          </div>
-
-          <div
-            className={`h-auto px-5 py-3  ${expanded[item.id] ? "block" : "hidden"}`}
-          >
-            {item.content}
-          </div>
+          {Array.isArray(item.content) && !item.content.length ? (
+            <></>
+          ) : (
+            <>
+              {" "}
+              <div
+                className={`border-b uppercase font-semibold  border-zinc-300 h-18 px-5 w-full flex justify-between items-center `}
+              >
+                {" "}
+                {item.name}{" "}
+                <span
+                  onClick={() => handleExpand(item.id)}
+                  className="cursor-pointer"
+                >
+                  <ChevronDown />
+                </span>
+              </div>
+              <div
+                className={`h-auto px-5 py-3  ${expanded[item.id] ? "block" : "hidden"}`}
+              >
+                {item.content}
+              </div>
+            </>
+          )}
         </div>
       ))}
     </div>
