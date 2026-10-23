@@ -1,6 +1,8 @@
 import { useRef } from "react";
 import { Skeleton } from "./ui/skeleton";
 
+declare const Razorpay: any;
+
 const CartPriceDetails = ({
   totalPrice,
   totalDiscount,

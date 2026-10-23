@@ -2,7 +2,7 @@ import { Sun, Moon, ShoppingCart } from "lucide-react";
 import { useState, useContext } from "react";
 import { useSelector } from "react-redux";
 import { themeContext } from "../lib/theme.jsx";
-import { Link, useSearchParams } from "react-router";
+import { Link } from "react-router";
 import type { CartItemType } from "../lib/cartSlice.js";
 import { Search } from "lucide-react";
 import { useNavigate } from "react-router";

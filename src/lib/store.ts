@@ -12,10 +12,12 @@ const preloadedCart = (() => {
 
 export const store = configureStore({
   reducer: {
+    // @ts-ignore
     cartState: cartReducer,
   },
+
   preloadedState: {
-    cart: preloadedCart ? { value: preloadedCart } : undefined,
+    cartState: preloadedCart ? { value: preloadedCart } : undefined,
   },
 });
 
@@ -33,3 +35,6 @@ store.subscribe(() => {
     }
   }
 });
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;

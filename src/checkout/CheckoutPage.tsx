@@ -98,7 +98,7 @@ const CheckoutPage = () => {
               {" "}
               {Array(4)
                 .fill(0)
-                .map((item: Product) => (
+                .map(() => (
                   <div className="w-full flex justify-between p-4">
                     <div className="w-[20%]">
                       {" "}

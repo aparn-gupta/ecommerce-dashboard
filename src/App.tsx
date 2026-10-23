@@ -12,7 +12,7 @@ import { setCart } from "./lib/cartSlice.js";
 import { useDispatch } from "react-redux";
 
 function App() {
-  const { theme, setTheme } = useContext(themeContext);
+  const { setTheme } = useContext(themeContext);
 
   const dispatch = useDispatch();
 
