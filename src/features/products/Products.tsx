@@ -1,7 +1,7 @@
-import ProductCard from "../components/ProductCard";
 import { useState, useMemo } from "react";
+import ProductCard from "./ProductCard";
 import { useParams, useSearchParams } from "react-router";
-import type { Product } from "../lib/types";
+import type { Product } from "@/lib/types";
 
 const Products = ({ products }: { products: Product[] }) => {
   // const [processedData, setProcessedData] = useState(products);

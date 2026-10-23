@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import CategoryCard from "../components/CategoryCard";
+import CategoryCard from "./CategoryCard";
 import { Link } from "react-router";
 import { Skeleton } from "@/components/ui/skeleton";
 

@@ -1,6 +1,6 @@
-import CategorySection from "./CategorySection";
+import CategorySection from "../features/category/CategorySection";
 
-const Dashboard = () => {
+const CategoryPage = () => {
   // const cartVal = localStorage.getItem("cartVal")?.
 
   return (
@@ -10,4 +10,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default CategoryPage;

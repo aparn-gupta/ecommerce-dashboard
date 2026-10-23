@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { Skeleton } from "./ui/skeleton";
+import { Skeleton } from "../../components/ui/skeleton";
 
 declare const Razorpay: any;
 

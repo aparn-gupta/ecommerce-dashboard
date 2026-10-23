@@ -8,7 +8,7 @@ interface ProductProps {
 }
 import { Minus, Plus } from "lucide-react";
 import { useSelector, useDispatch } from "react-redux";
-import { add, remove, type CartItemType } from "../lib/cartSlice";
+import { add, remove, type CartItemType } from "../../lib/cartSlice";
 
 export const calcOriginalPrice = (givenPrice: number, percentage: number) => {
   if (!givenPrice) return "NA";

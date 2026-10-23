@@ -1,13 +1,13 @@
-import CartItem from "../components/CartItem";
 import { useSelector } from "react-redux";
-import CartPriceDetails from "../components/CartPriceDetails";
-import { type Product } from "../lib/types";
+import CartItem from "@/features/cart/CartItem";
+import CartPriceDetails from "@/features/cart//CartPriceDetails";
+import { type Product } from "@/lib/types";
 import { useEffect, useState } from "react";
-import type { CartItemType } from "../lib/cartSlice";
-import { calcOriginalPrice } from "../components/ProductCard";
+import type { CartItemType } from "@/lib/cartSlice";
+import { calcOriginalPrice } from "@/features/products/ProductCard";
 import { Skeleton } from "@/components/ui/skeleton";
 
-const CheckoutPage = () => {
+const CartPage = () => {
   const cartVal = useSelector((state: any) => state.cartState.value);
 
   // const cartVal = cartValState.filter(
@@ -153,4 +153,4 @@ const CheckoutPage = () => {
   );
 };
 
-export default CheckoutPage;
+export default CartPage;

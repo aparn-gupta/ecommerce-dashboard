@@ -1,7 +1,7 @@
-import type { Product } from "../lib/types";
-import { calcOriginalPrice } from "./ProductCard";
+import type { Product } from "@/lib/types";
+import { calcOriginalPrice } from "../products/ProductCard";
 import { useDispatch } from "react-redux";
-import { setItemQuantity } from "../lib/cartSlice";
+import { setItemQuantity } from "@/lib/cartSlice";
 import RatingComponent from "react-rating";
 import { Star } from "lucide-react";
 

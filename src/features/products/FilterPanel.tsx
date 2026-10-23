@@ -1,7 +1,7 @@
 import { ChevronDown } from "lucide-react";
 import { useState } from "react";
 import { X } from "lucide-react";
-import type { Product } from "../lib/types";
+import type { Product } from "@/lib/types";
 import { useSearchParams } from "react-router";
 
 interface FilterItems {

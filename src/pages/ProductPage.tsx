@@ -1,12 +1,11 @@
-import FilterPanel from "./FilterPanel";
+import FilterPanel from "@/features/products/FilterPanel";
 import { useParams, useSearchParams } from "react-router";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useEffect, useRef, useState } from "react";
 import type { Product } from "../lib/types";
+import Products from "@/features/products/Products";
 
-import Products from "./Products";
-
-const CategoryPage = () => {
+const ProductsPage = () => {
   const { name } = useParams();
 
   const [searchParams] = useSearchParams();
@@ -170,4 +169,4 @@ const CategoryPage = () => {
   );
 };
 
-export default CategoryPage;
+export default ProductsPage;
