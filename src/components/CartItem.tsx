@@ -2,8 +2,10 @@ import type { Product } from "../lib/types";
 import { calcOriginalPrice } from "./ProductCard";
 import { useDispatch } from "react-redux";
 import { setItemQuantity } from "../lib/cartSlice";
-import Rating from "react-rating";
+import RatingComponent from "react-rating";
 import { Star } from "lucide-react";
+
+const Rating = RatingComponent as unknown as React.ComponentType<any>;
 
 const CartItem = ({ item }: { item: Product }) => {
   const originalPrice: number | string = calcOriginalPrice(
