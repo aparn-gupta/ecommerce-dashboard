@@ -8,13 +8,13 @@ import CategoryPage from "./pages/CategoryPage.js";
 import CartPage from "./pages/CartPage.js";
 import ProductsPage from "./pages/ProductPage.js";
 
-import { setCart } from "./lib/cartSlice.js";
-import { useDispatch } from "react-redux";
+// import { setCart } from "./lib/cartSlice.js";
+// import { useDispatch } from "react-redux";
 
 function App() {
   const { setTheme } = useContext(themeContext);
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   useEffect(() => {
     const storedTheme = localStorage.getItem("theme");
