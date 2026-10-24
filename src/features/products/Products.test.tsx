@@ -6,7 +6,7 @@ import Products from "./Products";
 
 const dummyStore = configureStore({
   reducer: {
-    cartState: (state = { value: [] }, action) => state,
+    cartState: (state = { value: [] }) => state,
   },
 });
 
