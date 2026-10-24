@@ -43,6 +43,7 @@ test("renders products properly", () => {
   render(
     <Provider store={dummyStore}>
       <MemoryRouter>
+        {/* @ts-ignore */}
         <Products products={mockProducts} />
       </MemoryRouter>
     </Provider>,
