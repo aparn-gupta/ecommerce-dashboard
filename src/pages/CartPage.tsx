@@ -7,6 +7,23 @@ import type { CartItemType } from "@/lib/cartSlice";
 import { calcOriginalPrice } from "@/features/products/ProductCard";
 import { Skeleton } from "@/components/ui/skeleton";
 
+export const calculateTotalCartVal = (cartProducts: Product[]) => {
+  const totals = cartProducts.reduce(
+    (acc, curr) => {
+      acc.totalPrice += Number(curr.quantity) * Number(curr.price);
+      acc.totalDiscount += Number(curr.discountPercentage);
+      acc.totalQuantity += Number(curr.quantity);
+      acc.originalPrice +=
+        Number(calcOriginalPrice(curr.price, curr.discountPercentage)) *
+        curr.quantity;
+      return acc;
+    },
+    { totalPrice: 0, totalDiscount: 0, totalQuantity: 0, originalPrice: 0 },
+  );
+
+  return totals;
+};
+
 const CartPage = () => {
   const cartVal = useSelector((state: any) => state.cartState.value);
 
@@ -65,18 +82,7 @@ const CartPage = () => {
 
   console.log(cartProducts);
 
-  const totals = cartProducts.reduce(
-    (acc, curr) => {
-      acc.totalPrice += Number(curr.quantity) * Number(curr.price);
-      acc.totalDiscount += Number(curr.discountPercentage);
-      acc.totalQuantity += Number(curr.quantity);
-      acc.originalPrice +=
-        Number(calcOriginalPrice(curr.price, curr.discountPercentage)) *
-        curr.quantity;
-      return acc;
-    },
-    { totalPrice: 0, totalDiscount: 0, totalQuantity: 0, originalPrice: 0 },
-  );
+  const totals = calculateTotalCartVal(cartProducts);
 
   console.log(totals);
 
