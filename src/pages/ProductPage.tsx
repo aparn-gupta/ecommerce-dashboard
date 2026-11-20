@@ -20,7 +20,7 @@ const ProductsPage = () => {
 
   const skipRef = useRef(0);
   const observerRef = useRef(null);
-  const allProductRef = useRef([]);
+  const allProductRef = useRef<Product[] | []>([]);
   const hasMoreRef = useRef(true);
 
   // const [targetEl, setTargetEl] = useState<any>(null);
