@@ -1,28 +1,36 @@
 import { Sun, Moon, ShoppingCart } from "lucide-react";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { themeContext } from "../lib/theme.jsx";
-import { Link } from "react-router";
+import { Link, useSearchParams } from "react-router";
 import type { CartItemType } from "../lib/cartSlice.js";
 import { Search } from "lucide-react";
 import { useNavigate } from "react-router";
 
 const Navbar = () => {
-  // const [mode, setMode] = useState("light");
+  const [searchParams] = useSearchParams();
+  const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate();
+
+  // console.log(navigate);
+  console.log(window.location.pathname);
+
+  useEffect(() => {
+    const searchQuery = searchParams.get("search");
+    console.log(searchQuery);
+    if (!searchQuery) {
+      console.log("hehehe no query");
+      setSearchTerm("");
+    }
+  }, [window.location.pathname]);
 
   const { theme, setTheme } = useContext(themeContext);
 
   const cartVal = useSelector((state: any) => state.cartState.value);
 
-  // const [searchParams, setSearchParams] = useSearchParams();
-
-  const navigate = useNavigate();
-
   const totalQuantity = cartVal.reduce((acc: number, curr: CartItemType) => {
     return acc + curr.quantity;
   }, 0);
-
-  const [searchTerm, setSearchTerm] = useState("");
 
   const handleSearch = () => {
     // console.log(searchTerm);
@@ -46,6 +54,7 @@ const Navbar = () => {
         >
           <input
             className="w-[750px] h-10 rounded-full search-bar-bg "
+            value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Search..."
           />
