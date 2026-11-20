@@ -114,7 +114,7 @@ const Products = ({ products }: { products: Product[] }) => {
         <span
           className={`cursor-pointer  ${
             selectedSortType == "price-decreasing"
-              ? "font-semibold text-nav border-b-2"
+              ? "font-semibold text-nav border-b-2 border-nav"
               : ""
           }`}
           id="price-decreasing"
@@ -126,7 +126,7 @@ const Products = ({ products }: { products: Product[] }) => {
         <span
           className={`cursor-pointer  ${
             selectedSortType == "created-date"
-              ? "font-semibold text-nav border-b-2"
+              ? "font-semibold text-nav border-b-2 border-nav"
               : ""
           }`}
           id="created-date"

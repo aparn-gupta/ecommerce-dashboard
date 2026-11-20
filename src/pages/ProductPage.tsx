@@ -13,52 +13,44 @@ const ProductsPage = () => {
   const searchTerm = searchParams.get("search") || "";
 
   const [products, setProducts] = useState<Product[]>([]);
-  const [searchProducts, setSearchProducts] = useState<Product[]>([]);
 
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<Error | null | unknown>("");
-  const [hasMore, setHasMore] = useState(true);
+  // const [hasMore, setHasMore] = useState(true);
 
-  let skipRef = useRef(0);
+  const skipRef = useRef(0);
   const observerRef = useRef(null);
+  const allProductRef = useRef([]);
+  const hasMoreRef = useRef(true);
 
   // const [targetEl, setTargetEl] = useState<any>(null);
 
-  let productsUrl;
-
-  if (name) {
-    productsUrl = `https://dummyjson.com/products/category/${name}`;
-  } else {
-    productsUrl = `https://dummyjson.com/products/search?q=${searchTerm}&limit=12&skip=${skipRef.current}`;
-  }
+  let productsUrl = "";
 
   // console.log(productsUrl, name);
 
   const fetchData = async (url: string) => {
-    console.log("run. fetch");
+    console.log("fetch: " + url);
+
     setLoading(true);
 
     try {
       const response = await fetch(url);
       const result = await response.json();
 
-      // console.log(result.products);
+      console.log("total: " + result?.total);
+      console.log(allProductRef.current);
+      // console.log("products Length: " + products.length);
 
-      if (name) {
-        setProducts(result?.products);
-      } else {
-        // const filtered = result?.products.filter(
-        //   (item: Product) =>
-        //     item.title.includes(searchTerm) ||
-        //     item.category.includes(searchTerm) ||
-        //     item.brand.includes(searchTerm) ||
-        //     item.tags.includes(searchTerm),
-        // );
-        // setSearchProducts((prev) => [...prev, ...filtered]);
-        setSearchProducts((prev) => [...prev, ...result?.products]);
-
-        setHasMore(result.total > searchProducts.length);
+      if (result?.total <= allProductRef.current.length) {
+        console.log(" total same as allproducts");
+        hasMoreRef.current = false;
+        return;
       }
+
+      allProductRef.current = [...allProductRef.current, ...result?.products];
+
+      setProducts((prev) => [...prev, ...result?.products]);
     } catch (err: unknown) {
       console.log(err);
       setError(err);
@@ -67,30 +59,38 @@ const ProductsPage = () => {
     }
   };
 
+  // console.log(products);
+
   useEffect(() => {
-    setSearchProducts([]);
-
-    console.log("heheheh");
-
-    fetchData(productsUrl);
+    setProducts([]);
+    skipRef.current = 0;
+    allProductRef.current = [];
+    hasMoreRef.current = true;
   }, [searchTerm]);
 
   useEffect(() => {
     // console.log("heheheh");
     const targetEl = observerRef.current;
 
-    if (!targetEl || name) return;
-    console.log(targetEl);
+    if (!targetEl) return;
+    // console.log(targetEl);
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           console.log("element visssible");
-          skipRef.current += 12;
+          console.log("hasMoreRef: " + hasMoreRef.current);
 
-          if (hasMore) {
-            fetchData(
-              `https://dummyjson.com/products/search?q=${searchTerm}&limit=12&&skip=${skipRef.current}`,
-            );
+          if (hasMoreRef.current) {
+            console.log("proceeding");
+            console.log(skipRef.current, searchTerm, hasMoreRef.current, name);
+            if (name) {
+              productsUrl = `https://dummyjson.com/products/category/${name}?limit=12&skip=${skipRef.current}`;
+            } else {
+              productsUrl = `https://dummyjson.com/products/search?q=${searchTerm}&limit=12&skip=${skipRef.current}`;
+            }
+
+            fetchData(productsUrl);
+            skipRef.current += 12;
           }
         }
       },
@@ -104,20 +104,14 @@ const ProductsPage = () => {
         observer.disconnect();
       }
     };
-  }, []);
-
-  // const productsUrl = ``;
-
-  // console.log(data);
-
-  // localStorage.setItem("viewedProducts", JSON.stringify(products));
+  }, [searchTerm]);
 
   return (
     <div className=" w-screen   p-4 h-screen bg-page_bg min-h-screen">
       {loading ? (
         <div className="flex w-full gap-3.5">
           <div className="w-[22%] ">
-            <FilterPanel products={products} />
+            <FilterPanel products={[]} />
           </div>
           <div className="grid grid-cols-4 gap-x-4 gap-y-8">
             {Array(10)
@@ -142,7 +136,7 @@ const ProductsPage = () => {
           {" "}
           {JSON.stringify(error)}{" "}
         </div>
-      ) : !products?.length && !searchProducts?.length ? (
+      ) : !products?.length ? (
         <div className="w-full text-2xl text-muted text-center">
           {" "}
           No products found
@@ -158,7 +152,7 @@ const ProductsPage = () => {
           </div>
           <div className="w-full  h-[calc(100vh-76px)] overflow-y-scroll">
             {" "}
-            <Products products={name ? products : searchProducts} />
+            <Products products={products} />
             <div className="w-full h-3" ref={observerRef}>
               {" "}
             </div>

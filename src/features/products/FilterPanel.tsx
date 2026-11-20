@@ -62,7 +62,7 @@ const FilterPanel = ({ products }: { products: Product[] }) => {
 
   // console.log("brandset size:" + brandSet.size);
 
-  console.log(brandSet);
+  // console.log(brandSet);
 
   const brandValues = Array.from(brandSet).map((item) => ({
     // filterId: filterId++,
@@ -266,7 +266,7 @@ const FilterPanel = ({ products }: { products: Product[] }) => {
     },
   ];
 
-  console.log(filterTypes);
+  // console.log(filterTypes);
 
   const handleFilterRemoval = (
     filterKey: string,

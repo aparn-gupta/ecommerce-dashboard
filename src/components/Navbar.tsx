@@ -36,7 +36,14 @@ const Navbar = () => {
           {" "}
           <div className="text-yellow-300 font-bold">LOGO</div>
         </Link>
-        <div className="relative flex w-138 items-center h-11 ">
+        <div
+          className="relative flex w-138 items-center h-11 "
+          onKeyDown={(e) => {
+            if (e.key == "Enter") {
+              handleSearch();
+            }
+          }}
+        >
           <input
             className="w-[750px] h-10 rounded-full search-bar-bg "
             onChange={(e) => setSearchTerm(e.target.value)}
