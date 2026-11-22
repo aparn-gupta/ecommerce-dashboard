@@ -19,7 +19,7 @@ const Navbar = () => {
     const searchQuery = searchParams.get("search");
     console.log(searchQuery);
     if (!searchQuery) {
-      console.log("hehehe no query");
+      console.log(" no query");
       setSearchTerm("");
     }
   }, [window.location.pathname]);

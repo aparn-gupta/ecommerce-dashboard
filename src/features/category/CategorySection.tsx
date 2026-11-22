@@ -69,7 +69,11 @@ function CategorySection() {
       <h1 className="text-4xl py-6"> Categories</h1>
       <div className="w-[80vw] mx-auto mt-5">
         {loading ? (
-          <div className="grid grid-cols-4 gap-x-4 gap-y-8">
+          <div
+            className="grid grid-cols-4 gap-x-4 gap-y-8"
+            role="status"
+            aria-label="Loading products"
+          >
             {Array(10)
               .fill(0)
               .map((_, i) => (
