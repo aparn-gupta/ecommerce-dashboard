@@ -34,7 +34,7 @@ const CartItem = ({ item }: { item: Product }) => {
                   dispatch(
                     setItemQuantity({
                       id: item?.id,
-                      quantity: Number(e.currentTarget.value),
+                      quantity: Number(e.target.value),
                     }),
                   );
                 }}

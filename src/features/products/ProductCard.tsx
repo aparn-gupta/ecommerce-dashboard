@@ -82,13 +82,21 @@ const ProductCard = ({
         {productCount ? (
           <div className="flex w-28 px-2 h-9 items-center rounded-md text-sm border shadow-sm border-slate-400 justify-between">
             {" "}
-            <button className=" text-muted  " onClick={addProducts}>
+            <button
+              className=" text-muted  "
+              onClick={addProducts}
+              aria-label="+"
+            >
               <Plus size={18} />
             </button>
             <span className="  flex rounded-md  text-nav font-semibold text-lg ">
               {productCount}
             </span>
-            <button className="text-muted  " onClick={minusProducts}>
+            <button
+              className="text-muted  "
+              onClick={minusProducts}
+              aria-label="-"
+            >
               <Minus size={18} />
             </button>
           </div>
@@ -96,6 +104,7 @@ const ProductCard = ({
           <div>
             <button
               className="w-28 px-2 rounded-md h-9 text-sm bg-nav text-white hover:bg-[#4385f0]"
+              aria-label="Add"
               onClick={addProducts}
             >
               Add
