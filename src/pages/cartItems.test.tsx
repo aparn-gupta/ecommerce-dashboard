@@ -46,6 +46,8 @@ describe("Cart Page", () => {
       },
     ]);
 
+    //@ts-ignore
+
     vi.spyOn(globalThis, "fetch").mockImplementation((url) => {
       const urlStr = String(url);
 
